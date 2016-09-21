@@ -13,9 +13,13 @@ of tools to ease the use of Rethinkdb in Django.
 Install
 -------
 
-`pip install rethinkdb`
+  ```python
+pip install rethinkdb
+pip install git+https://github.com/dmpayton/reqon.git
+pip install git+https://github.com/synw/django-R.git
+  ```
 
-Clone then add `'djR',` to installed apps.
+Add `'djR',` to installed apps.
 
 Urls: `url('^r/', include('djR.urls')),`
 
@@ -69,3 +73,9 @@ Todo
 
 - Merge [django-changefeed](https://github.com/synw/django-changefeed) into here
 - Add more query options: pluck, filters, etc..
+
+Thanks
+------
+
+- To the [Rethinkdb](https://rethinkdb.com) guys
+- To [Requon](https://github.com/dmpayton/reqon.git)
