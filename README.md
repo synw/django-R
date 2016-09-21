@@ -52,7 +52,7 @@ q = r.db('mydb').table('mytable').pluck('myfield')
 R.run_query(q)
   ```
 
-Run a query from json: you will need [Requon](https://github.com/dmpayton/reqon.git):
+Run a query from json:
 
   ```python
 from djR.r_producers import R
@@ -61,7 +61,7 @@ q = {"$db":"mydb", "$table":"mytable", "$query":[["$pluck":"myfield"]]}
 R.run_json(q)
   ```
   
-See the Requon doc for the json query format specifications.
+See the [Requon](https://github.com/dmpayton/reqon.git) doc for the json query format specifications.
 
 Screenshot
 ----------
