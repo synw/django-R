@@ -61,7 +61,7 @@ q = {"$db":"mydb", "$table":"mytable", "$query":[["$pluck":"myfield"]]}
 results = R.run_json(q)
   ```
   
-See the [Requon](https://github.com/dmpayton/reqon.git) doc for the json query format specifications.
+See the [Reqon](https://github.com/dmpayton/reqon.git) doc for the json query format specifications.
 
 Screenshot
 ----------
@@ -77,5 +77,5 @@ Todo
 Thanks
 ------
 
-- To the [Rethinkdb](https://rethinkdb.com) guys
-- To [Requon](https://github.com/dmpayton/reqon.git)
+- To [Rethinkdb](https://rethinkdb.com)
+- To [Reqon](https://github.com/dmpayton/reqon.git)
