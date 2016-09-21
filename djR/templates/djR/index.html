@@ -1,0 +1,69 @@
+{% extends "djR/base.html" %}
+{% load i18n staticfiles %}
+
+{% block content %}
+{% csrf_token %}
+<script type="text/javascript">
+function json_view() {
+	$('#res_v').hide();
+	$('#res_j').show();
+	$('#l_v').removeClass('active');
+	$('#l_j').addClass('active');
+}
+function visual_view() {
+	$('#res_j').hide();
+	$('#res_v').show();
+	$('#l_j').removeClass('active');
+	$('#l_v').addClass('active');
+}
+</script>
+<input type="hidden" name="$table" />
+<div class="row">
+	<div class="col-xs-12 col-sm-10" style="margin-top:1em">
+		<div class="row">
+			<div class="col-xs-12 text-right">
+				<div class="pull-left">
+					<h3 id="results_title" style="display:none">
+						<span id="num_results"></span> {% trans "results" %}
+						<span id="q_time" class="light" style="font-size:60%;margin-left:1em"></span>
+					</h3>
+				</div>
+				<div id="q_btns" style="display:none">
+					<div class="form-control">
+						<span style="position:relative;top:-0.3em;">Limit</span> 
+						<input class="form-control blue" 
+									name="$limit" 
+									maxlength="10" 
+									id="limit" 
+									type="text" 
+									placeholder="100" 
+									value="100" 
+									size="3" 
+									style="border:none;position:relative;top:-0.5em;background-color:transparent;border-color:transparent;">
+					</div>
+					<a class="btn btn-default" onclick="count_all()">Count</a>
+					<a class="btn btn-success" onclick="run_q()">Run</a>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<div id="results" style="display:none">
+					<ul class="nav nav-tabs">
+						<li id="l_v" class="active"><a href="javascript:visual_view()">{% trans "Data" %}</a></li>
+						<li id="l_j"><a href="javascript:json_view()">Json</a></li>
+					</ul>
+					<div id="res_v"></div>
+					<div id="res_j" style="display:none"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="sidebar" class="col-xs-12 col-sm-2 text-center"></div>
+</div>
+{% endblock %}
+
+{% block extra_head %}
+	<script type="text/javascript" src="{% static 'django_ajax/js/jquery.ajax.min.js' %}"></script>
+	{% include "djR/js/queries.js" %}
+{% endblock %}

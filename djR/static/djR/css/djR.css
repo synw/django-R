@@ -1,0 +1,87 @@
+/* ##################################### Base tags ##################################### */
+body  {
+	background-color:#FFFFFF;
+    margin: 0;
+    padding: 0; 
+}
+a, a:hover, a:visited {
+	text-decoration:none !important;
+}
+a:not(.btn), a:visited:not(.btn) {
+	color:steelblue;
+}
+a:hover:not(.btn) {
+	color:grey;
+}
+h1, h2, h3, h4, h5 {
+	color:steelblue;
+}
+h4 {
+	font-weight:bold;
+}
+img {
+	vertical-align:middle;
+}
+div {
+	box-sizing: border-box;
+	vertical-align:top;
+}
+/* ##################################### Skeleton ##################################### */
+#site_header {
+	min-height:50px;
+	background-color:steelblue;
+	min-height:75px;
+	color:white;
+	padding:1em 1.5em 1em 3em;
+}
+#site_header a, #site_header a:visited, #navbar a, #navbar a:visited {
+	color:white !important;
+	padding-right:0.8em;
+}
+#content {
+	min-height:40em;
+	padding-bottom:4em;
+}
+#footer {
+	min-height:50px;
+	background-color:firebrick;
+}
+/* ##################################### Else ##################################### */
+.label {
+	margin:0.2em;
+}
+.result_cell {
+	border-bottom:1px solid lightgrey;
+	margin:0.5em 0 0.5em 0;
+	padding-bottom:0.8em;
+}
+#results_title {
+	position:relative;
+	top:-0.5em;
+}
+.blue {
+	color:steelblue;
+}
+.light {
+	color:grey;
+	opacity:0.8;
+}
+.lighter {
+	color:grey;
+	opacity:0.5;
+}
+.big {
+	font-size:150%;
+}
+.small {
+	font-size:85%;
+}
+.object {
+	color:firebrick;
+}
+.array {
+	color:orange;
+}
+.number {
+	color:green;
+}

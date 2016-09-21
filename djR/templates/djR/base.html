@@ -1,0 +1,44 @@
+{% load staticfiles i18n R_tags %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>{% block title %}Django Rethinkdb data explorer{% endblock %}</title>
+	<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+	<link rel="stylesheet" media="screen, projection" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+	<link rel="stylesheet" media="screen, projection" href="{% static 'djR/css/djR.css' %}" />
+    {% block extra_head %}{% endblock %}
+</head>
+
+<body>
+	<form class="form-inline" id="qform">
+		<div id="site_header">	
+			<div class="pull-right" style="position:relative;top:0.4em">
+				<div class="form-group">
+  					<label for="sel1">{% trans "Database" %}:</label>
+					<select class="form-control" name="$db" onchange="pop_tables()">
+						<option value="" disabled>----------</option>
+						{% get_default_db as default_db %}
+						{% for db in dbs %}
+							{% if db == default_db %}
+								<option selected value="{{ db }}">{{ db }}</option>
+								<script>pop_tables()</script>
+							{% else %}
+					  			<option value="{{ db }}">{{ db }}</option>
+					  		{% endif %}
+					  	{% endfor %}
+					</select>
+				</div>
+			</div>
+			<div style="display:inline-block;font-size:185%;">
+				Django Rethinkdb <span style="color:lightgrey;font-style:italic">data explorer</span>
+			</div>
+		</div>
+		<div id="content" class="container-fluid">
+			{% block content %}{% endblock %}
+		</div>
+	</form>
+{% block bottom %}{% endblock %}
+</body>
+</html>
