@@ -72,7 +72,7 @@ Todo
 ----
 
 - Merge [django-changefeed](https://github.com/synw/django-changefeed) into here
-- Add more query options: pluck, filters, etc..
+- Add more query options: index, order, pluck, filters, etc..
 
 Thanks
 ------
