@@ -61,7 +61,7 @@ q = {"$db":"mydb", "$table":"mytable", "$query":[["$limit":10]]}
 results = R.run_json(q)
   ```
   
-Check the [Reqon](https://reqon.readthedocs.org/) doc for the json query format specifications.
+Check the [Reqon doc](https://reqon.readthedocs.org/) for the json query format specifications.
 
 Screenshot
 ----------
