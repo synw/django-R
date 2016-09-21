@@ -48,7 +48,7 @@ Run a query:
 from rethinkdb import r
 from djR.r_producers import R
 
-q = r.db('mydb').table('mytable').pluck('myfield')
+q = r.db('mydb').table('mytable').limit(10)
 results = R.run_query(q)
   ```
 
@@ -57,7 +57,7 @@ Run a query from json:
   ```python
 from djR.r_producers import R
 
-q = {"$db":"mydb", "$table":"mytable", "$query":[["$pluck":"myfield"]]}
+q = {"$db":"mydb", "$table":"mytable", "$query":[["$limit":10]]}
 results = R.run_json(q)
   ```
   
