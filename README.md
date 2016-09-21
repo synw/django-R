@@ -61,7 +61,7 @@ q = {"$db":"mydb", "$table":"mytable", "$query":[["$pluck":"myfield"]]}
 results = R.run_json(q)
   ```
   
-See the [Reqon](https://github.com/dmpayton/reqon.git) doc for the json query format specifications.
+Check the [Reqon](https://reqon.readthedocs.org/) doc for the json query format specifications.
 
 Screenshot
 ----------
