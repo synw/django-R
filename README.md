@@ -6,7 +6,7 @@ Toolkit to use Rethinkdb in Django. Features:
 - Interface to explore the Rethinkdb data
 - Helpers for basic operations
 
-This module was made to give an easy access to the Rethinkdb functionalities inside of the Django environement. 
+This module was made to give an easy access to the Rethinkdb functionalities inside of the Django environment. 
 We are not trying to replace the classic Django orm nor the builtin Rethinkdb admin interface. It is just a set
 of tools to ease the use of Rethinkdb in Django.
 
