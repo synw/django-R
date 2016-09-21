@@ -14,7 +14,7 @@ Install
 -------
 
   ```python
-pip install rethinkdb
+pip install rethinkdb geojson jsonschema six
 pip install git+https://github.com/dmpayton/reqon.git
 pip install git+https://github.com/synw/django-R.git
   ```
