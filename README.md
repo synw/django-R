@@ -49,7 +49,7 @@ from rethinkdb import r
 from djR.r_producers import R
 
 q = r.db('mydb').table('mytable').pluck('myfield')
-R.run_query(q)
+results = R.run_query(q)
   ```
 
 Run a query from json:
@@ -58,7 +58,7 @@ Run a query from json:
 from djR.r_producers import R
 
 q = {"$db":"mydb", "$table":"mytable", "$query":[["$pluck":"myfield"]]}
-R.run_json(q)
+results = R.run_json(q)
   ```
   
 See the [Requon](https://github.com/dmpayton/reqon.git) doc for the json query format specifications.
