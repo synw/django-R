@@ -14,12 +14,17 @@ Install
 -------
 
   ```python
-pip install rethinkdb geojson jsonschema djangoajax six
+pip install rethinkdb geojson jsonschema djangoajax six python-dateutil
 pip install git+https://github.com/dmpayton/reqon.git
 pip install git+https://github.com/synw/django-R.git
   ```
 
-Add `'djR',` to installed apps.
+Installed apps:
+
+  ```python
+'django_ajax',
+'djR',
+  ```
 
 Urls: `url('^r/', include('djR.urls')),`
 
