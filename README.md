@@ -1,7 +1,7 @@
 Django R
 ========
 
-Toolkit to use Rethinkdb in Django. Features:
+Toolkit to use [Rethinkdb](https://rethinkdb.com) in Django. Features:
 
 - Interface to explore the Rethinkdb data
 - Helpers for basic operations
