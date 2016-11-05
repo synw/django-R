@@ -2,28 +2,36 @@
 
 import rethinkdb as r
 import reqon
-from djR.conf import RETHINKDB_HOST, RETHINKDB_PORT, VERBOSE
+from djR.conf import RETHINKDB_HOST, RETHINKDB_PORT, RETHINKDB_USER, RETHINKDB_PASSWORD, VERBOSE
 
 
 class RethinkDB():
     
-    def connect(self):
-        conn = r.connect(RETHINKDB_HOST, RETHINKDB_PORT).repl()
+    def connect(self, db=None):
+        if db is None:
+            if RETHINKDB_USER is not None and RETHINKDB_PASSWORD is not None:
+                conn = r.connect(host=RETHINKDB_HOST, port=RETHINKDB_PORT, user=RETHINKDB_USER, password=RETHINKDB_PASSWORD).repl()
+            else:
+                conn = r.connect(host=RETHINKDB_HOST, port=RETHINKDB_PORT)
+        else:
+            if RETHINKDB_USER is not None and RETHINKDB_PASSWORD is not None:
+                conn = r.connect(host=RETHINKDB_HOST, port=RETHINKDB_PORT, db=db, user=RETHINKDB_USER, password=RETHINKDB_PASSWORD).repl()
+            else:
+                conn = r.connect(host=RETHINKDB_HOST, port=RETHINKDB_PORT, db=db)
         return conn
 
     def write(self, database, table, data):
         conn = self.connect()
         # push data into table
-        if VERBOSE is True:
-            print "Inserting data into database "+database
         res = r.db(database).table(table).insert(data, return_changes=True, conflict="replace").run(conn)
-        if res['errors'] == 0:
-            if res["inserted"] > 0:
-                if VERBOSE is True:
-                    print "Data inserted into table "+table
-            if res["replaced"] > 0:
-                if VERBOSE is True:
-                    print "Data updated in table "+table
+        if VERBOSE is True:
+            if res['errors'] == 0:
+                if res["inserted"] > 0:
+                    if VERBOSE is True:
+                        print "Data inserted into table "+table
+                if res["replaced"] > 0:
+                    if VERBOSE is True:
+                        print "Data updated in table "+table
         else:
             print "ERROR: "+str(res['errors'])
         conn.close()
