@@ -20,10 +20,10 @@ class RethinkDB():
                 conn = r.connect(host=RETHINKDB_HOST, port=RETHINKDB_PORT, db=db)
         return conn
 
-    def write(self, database, table, data):
+    def write(self, database, table, data, conflict="replace"):
         conn = self.connect()
         # push data into table
-        res = r.db(database).table(table).insert(data, return_changes=True, conflict="replace").run(conn)
+        res = r.db(database).table(table).insert(data, return_changes=True, conflict=conflict).run(conn)
         if VERBOSE is True:
             if res['errors'] == 0:
                 if res["inserted"] > 0:
@@ -35,7 +35,7 @@ class RethinkDB():
         else:
             print "ERROR: "+str(res['errors'])
         conn.close()
-        return
+        return res
     
     def run_query(self, r_query, profile=False):
         conn = self.connect()
