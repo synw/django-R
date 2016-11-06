@@ -37,6 +37,23 @@ class RethinkDB():
         conn.close()
         return res
     
+    def update(self, database, table, data, modelname, pk):
+        conn = self.connect()
+        # push data into table
+        res = r.db(database).table(table).filter((r.row['model'] == modelname) & (r.row['pk'] == pk)).update(data, return_changes=True).run(conn)
+        if VERBOSE is True:
+            if res['errors'] == 0:
+                if res["inserted"] > 0:
+                    if VERBOSE is True:
+                        print "Data inserted into table "+table
+                if res["replaced"] > 0:
+                    if VERBOSE is True:
+                        print "Data updated in table "+table
+        else:
+            print "ERROR: "+str(res['errors'])
+        conn.close()
+        return res
+    
     def run_query(self, r_query, profile=False):
         conn = self.connect()
         return r_query.run(conn, profile=profile)
@@ -51,5 +68,11 @@ class RethinkDB():
         else:
             res = self.run_query(reql)
             return res
-    
+
+    def visualize_query(self, r_query):
+        res = list(R.run_query(r_query))
+        for result in res:
+            yield result
+        return
+        
 R = RethinkDB()
