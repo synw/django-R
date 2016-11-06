@@ -54,6 +54,13 @@ class RethinkDB():
         conn.close()
         return res
     
+    def delete(self, database, table, filters):
+        conn = self.connect()
+        q = r.db(database).table(table).filter(filters).delete()
+        res = self.run_query(q)
+        conn.close()
+        return res 
+    
     def run_query(self, r_query, profile=False):
         conn = self.connect()
         return r_query.run(conn, profile=profile)
@@ -72,7 +79,6 @@ class RethinkDB():
     def visualize_query(self, r_query):
         res = list(R.run_query(r_query))
         for result in res:
-            yield result
-        return
+            yield
         
 R = RethinkDB()
