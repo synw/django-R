@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import json
 import rethinkdb as r
 import reqon
 from djR.conf import RETHINKDB_HOST, RETHINKDB_PORT, RETHINKDB_USER, RETHINKDB_PASSWORD, VERBOSE
@@ -54,7 +55,7 @@ class RethinkDB():
         conn.close()
         return res
     
-    def delete(self, database, table, filters):
+    def delete(self, database, table, filters={}):
         conn = self.connect()
         q = r.db(database).table(table).filter(filters).delete()
         res = self.run_query(q)
@@ -63,7 +64,9 @@ class RethinkDB():
     
     def run_query(self, r_query, profile=False):
         conn = self.connect()
-        return r_query.run(conn, profile=profile)
+        res = r_query.run(conn, profile=profile)
+        conn.close()
+        return res
     
     def run_json(self, json_q, profile=False):
         reql = reqon.build_reql(json_q)
@@ -80,5 +83,11 @@ class RethinkDB():
         res = list(R.run_query(r_query))
         for result in res:
             yield
+            
+    def print_query(self, r_query):
+        res = R.run_query(r_query)
+        print "QUERY: "+str(r_query)
+        print json.dumps(res, indent=4)
+        return
         
 R = RethinkDB()
