@@ -110,7 +110,7 @@ function FormatVisual(oData, sIndent) {
                 sHTML += "<span class=\"light\">null</span>";
                 break;
             case "string":
-                sHTML += ('<span class="light">"</span>' + vValue + '<span class="light">"</span>');
+                sHTML += ('<span class="light">"</span>' + vValue.replace(/(<([^>]+)>)/ig,"") + '<span class="light">"</span>');
                 break;
             default:
                 sHTML += ("TYPEOF: " + typeof(vValue));
