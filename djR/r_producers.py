@@ -37,11 +37,11 @@ class RethinkDB():
             print "ERROR: "+str(res['errors'])
         conn.close()
         return res
-    
-    def update(self, database, table, data, modelname, pk):
+
+    def update(self, database, table, data, filters):
         conn = self.connect()
         # push data into table
-        res = r.db(database).table(table).filter((r.row['model'] == modelname) & (r.row['pk'] == pk)).update(data, return_changes=True).run(conn)
+        res = r.db(database).table(table).filter(filters).update(data, return_changes=True).run(conn)
         if VERBOSE is True:
             if res['errors'] == 0:
                 if res["inserted"] > 0:
@@ -54,7 +54,7 @@ class RethinkDB():
             print "ERROR: "+str(res['errors'])
         conn.close()
         return res
-    
+
     def delete(self, database, table, filters={}):
         conn = self.connect()
         q = r.db(database).table(table).filter(filters).delete()
