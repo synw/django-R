@@ -41,6 +41,17 @@ function get_tables(container, q, db) {
 		$(container).html(output);
     });
 }
+
+function delete_q(id) {
+	if (window.confirm("Delete item "+id+"?")) {
+		var db = $('select[name="$db"]').val();
+		var table = $('input[name="$table"]').val();
+		var query = '"$delete": "'+id+'"';
+		var q = '{"$db":"'+db+'", "$table":"'+table+'", '+query+'}';
+		post_query(q);
+	}
+}
+
 function run_q() {
 	var db = $('select[name="$db"]').val();
 	var table = $('input[name="$table"]').val();
@@ -58,14 +69,32 @@ function post_query(q) {
 	$("#res_v").html('');
 	ajaxPost(url, {'q': q}, function(content){
 		var res = JSON.parse(content)["data"];
+		//console.log(content);
+		//console.log("Type: "+get_type(res));
 		var qtime = JSON.parse(content)["time"];
+		var output = '';
+		if (get_type(res) == '[object Object]') {
+			var keys = Object.keys(res);
+			var kl = keys.length;
+			var idr = '1_res';
+			//console.log(i+' : '+JSON.stringify(res));
+			output = output+'<div id="'+idr+'" class="result_cell">';
+			output = output+'<div class="pull-right light big" style="margin-right:5px">1</div>';
+			output = output+FormatVisual(res);
+			output = output+'</div>';
+			json_output = json_output+'<div id="'+idr+'" class="result_cell">';
+			json_output = json_output+'<div class="pull-right light big">1</div>';
+			json_output = json_output+FormatJSON(res);
+			json_output = json_output+'</div>';
+			$('#num_results').html("1");
+			
+		}
 		if (get_type(res) == '[object Number]') {
 			$('#res_v').html('');
 			$('#num_results').html(res);
 		}
 		if (get_type(res) == '[object Array]') {
 			var arrayLength = res.length;
-			var output = '';
 			var json_output = '';
 			num = 0;
 			for (var i = 0; i < arrayLength; i++) {
@@ -73,11 +102,13 @@ function post_query(q) {
 				var keys = Object.keys(res[i]);
 				var kl = keys.length;
 				var idr = i+'_res';
+				var delete_link = "<a class=\"btn btn-xs btn-danger\" style=\"position:relative;top:4px;\"href=\"javascript:delete_q('"+res[i]["id"]+"')\">Delete</a>";
 				//console.log(i+' : '+JSON.stringify(res[i]));
 				output = output+'<div id="'+idr+'" class="result_cell">';
-				output = output+'<div class="pull-right light big">'+num+'</div>';
+				output = output+'<div class="pull-right">'+delete_link+"</div>";
+				output = output+'<div class="pull-right light big" style="margin-right:5px">'+num+'</div>';
 				output = output+FormatVisual(res[i]);
-				output = output+'</div>'
+				output = output+'</div>';
 				json_output = json_output+'<div id="'+idr+'" class="result_cell">';
 				json_output = json_output+'<div class="pull-right light big">'+num+'</div>';
 				json_output = json_output+FormatJSON(res[i]);
@@ -89,7 +120,11 @@ function post_query(q) {
 		$('#results_title').show();
 		$("#res_v").html(output);
 		$('#res_j').html(json_output);
-		$('#q_time').html(qtime+' ms');
+		if (qtime != null) {
+			$('#q_time').html(qtime+' ms');
+		} else {
+			$('#q_time').html("");
+		}
     });
 }
 </script>

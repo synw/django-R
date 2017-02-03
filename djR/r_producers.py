@@ -54,13 +54,26 @@ class RethinkDB():
             print "ERROR: "+str(res['errors'])
         conn.close()
         return res
+    
+    def delete(self, database, table, item_id, profile=False):
+        conn = self.connect()
+        q = r.db(database).table(table).get(item_id).delete()
+        if profile is True:
+            res, profile = self.run_query(q, profile=True)
+        else:
+            res = self.run_query(q)
+        conn.close()
+        return res
 
-    def delete(self, database, table, filters={}):
+    def delete_filtered(self, database, table, filters={}, profile=False):
         conn = self.connect()
         q = r.db(database).table(table).filter(filters).delete()
-        res = self.run_query(q)
+        if profile is True:
+            res, profile = self.run_query(q, profile=True)
+        else:
+            res = self.run_query(q)
         conn.close()
-        return res 
+        return res
     
     def run_query(self, r_query, profile=False):
         conn = self.connect()
