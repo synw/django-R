@@ -20,6 +20,16 @@ class RethinkDB():
             else:
                 conn = r.connect(host=RETHINKDB_HOST, port=RETHINKDB_PORT, db=db)
         return conn
+    
+    def get_filtered(self, database, table, filters={}, profile=False):
+        conn = self.connect()
+        q = r.db(database).table(table).filter(filters)
+        if profile is True:
+            res, profile = self.run_query(q, profile=True)
+        else:
+            res = self.run_query(q)
+        conn.close()
+        return res
 
     def write(self, database, table, data, conflict="replace"):
         conn = self.connect()
