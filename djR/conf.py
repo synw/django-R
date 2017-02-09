@@ -10,4 +10,4 @@ RETHINKDB_PASSWORD = getattr(settings, 'RETHINKDB_PASSWORD', None)
 
 DEFAULT_DB = getattr(settings, 'R_DEFAULT_DB', None)
     
-VERBOSE = getattr(settings, 'R_VERBOSE', True)
+VERBOSE = getattr(settings, 'R_VERBOSE', False)
