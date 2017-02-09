@@ -43,8 +43,8 @@ class RethinkDB():
                 if res["replaced"] > 0:
                     if VERBOSE is True:
                         print "Data updated in table "+table
-        else:
-            print "ERROR: "+str(res['errors'])
+        if res['errors'] > 0:
+            print "Rethinkdb ERROR: "+str(res['errors'])
         conn.close()
         return res
 
@@ -60,8 +60,8 @@ class RethinkDB():
                 if res["replaced"] > 0:
                     if VERBOSE is True:
                         print "Data updated in table "+table
-        else:
-            print "ERROR: "+str(res['errors'])
+        if res['errors'] > 0:
+            print "Rethinkdb ERROR: "+str(res['errors'])
         conn.close()
         return res
     
