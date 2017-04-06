@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-
+from __future__ import print_function
 import json
 import rethinkdb as r
 import reqon
@@ -39,12 +38,12 @@ class RethinkDB():
             if res['errors'] == 0:
                 if res["inserted"] > 0:
                     if VERBOSE is True:
-                        print "Data inserted into table "+table
+                        print("Data inserted into table "+table)
                 if res["replaced"] > 0:
                     if VERBOSE is True:
-                        print "Data updated in table "+table
+                        print("Data updated in table "+table)
         if res['errors'] > 0:
-            print "Rethinkdb ERROR: "+str(res['errors'])
+            print("Rethinkdb ERROR: "+str(res['errors']))
         conn.close()
         return res
 
@@ -56,12 +55,12 @@ class RethinkDB():
             if res['errors'] == 0:
                 if res["inserted"] > 0:
                     if VERBOSE is True:
-                        print "Data inserted into table "+table
+                        print("Data inserted into table "+table)
                 if res["replaced"] > 0:
                     if VERBOSE is True:
-                        print "Data updated in table "+table
+                        print("Data updated in table "+table)
         if res['errors'] > 0:
-            print "Rethinkdb ERROR: "+str(res['errors'])
+            print("Rethinkdb ERROR: "+str(res['errors']))
         conn.close()
         return res
     
@@ -109,8 +108,8 @@ class RethinkDB():
             
     def print_query(self, r_query):
         res = R.run_query(r_query)
-        print "QUERY: "+str(r_query)
-        print json.dumps(res, indent=4)
+        print("QUERY: "+str(r_query))
+        print(json.dumps(res, indent=4))
         return
         
 R = RethinkDB()
