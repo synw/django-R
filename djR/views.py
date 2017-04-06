@@ -28,10 +28,10 @@ class RpostView(AJAXMixin, TemplateView):
             raise Http404       
         q = json.loads(self.request.POST['q'])
         self.time = None
-        if q.has_key("$delete"):
+        if "$delete" in q:
             self.results= R.delete(q['$db'], q["$table"], q["$delete"])
         else:
-            if not q.has_key('$table'):
+            if not '$table' in q:
                 query = r.db(q['$db']).table_list()
                 self.results = R.run_query(query)
             else:
